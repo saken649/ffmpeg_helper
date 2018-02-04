@@ -8,18 +8,20 @@ class FFMpeg
     {
         try {
             if (!isset($argv[1])) throw new Exception('動画パスが渡されていません。');
-            $this->_getFileList($argv[1]);
+            $list = $this->_getFileList($argv[1]);
+            foreach ($list as $file) {
+                $this->_convertFile($file);
+            }
         } catch (Exception $e) {
             exit($e->getMessage() . "\n");
         }
     }
 
-    private function _getFileList(string $path): void
+    private function _getFileList(string $path): array
     {
         $glob = glob($path . '*.mkv');
-        foreach ($glob as $file) {
-            $this->_convertFile($file);
-        }
+        if (empty($glob)) throw new Exception($path . 'にMKVファイルがありません。');
+        return $glob;
     }
 
     private function _convertFile($file): void
