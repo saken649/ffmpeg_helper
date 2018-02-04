@@ -24,7 +24,7 @@ class FFMpeg
         return $glob;
     }
 
-    private function _convertFile($file): void
+    private function _convertFile(string $file): void
     {
         $pathinfo = pathinfo($file);
         $dirname = $this->_escapeSpaces($pathinfo['dirname']);
@@ -37,7 +37,7 @@ class FFMpeg
         echo sprintf(">>>>> converted! <<<<<\nfrom: %s\nto: %s\n", $file, $to);
     }
 
-    private function _mkdirConvertedDir($dirname): string
+    private function _mkdirConvertedDir(string $dirname): string
     {
         $convertedDir = sprintf('%s/converted', $dirname);
         if (!file_exists($convertedDir)) {
@@ -46,7 +46,7 @@ class FFMpeg
         return $convertedDir;
     }
 
-    private function _escapeSpaces($path): string
+    private function _escapeSpaces(string $path): string
     {
         return preg_replace("/\s/", "\\ ", $path);
     }
